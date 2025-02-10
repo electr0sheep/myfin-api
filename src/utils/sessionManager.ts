@@ -42,7 +42,7 @@ const checkIfUserExists = async (username: string, key: string) => {
         OR: [{sessionkey: key}, {sessionkey_mobile: key}],
     };
 
-    return User.findUnique({
+    return prisma.users.findUnique({
         where: whereCondition,
     }).catch(() => null);
 };
