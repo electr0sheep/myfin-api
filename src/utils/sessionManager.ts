@@ -4,12 +4,12 @@ import APIError from "../errorHandling/apiError.js";
 import {generateUuid} from "./CryptoUtils.js";
 import Logger from "./Logger.js";
 
-const User = prisma.users;
+// const User = prisma.users;
 
 const updateUserSessionKeyValue = async (username: string, newSessionKey: string, mobile = false) => {
     const sessionKeyAttr = mobile ? 'sessionkey_mobile' : 'sessionkey';
     if (!mobile) {
-        await User.update({
+        await prisma.users.update({
             where: {username},
             data: {[sessionKeyAttr]: newSessionKey},
         });
@@ -18,7 +18,7 @@ const updateUserSessionKeyValue = async (username: string, newSessionKey: string
 
 const updateUserTrustlimitValue = async (username: string, newTrustLimit: number, mobile = false) => {
     const trustLimitAttr = mobile ? 'trustlimit_mobile' : 'trustlimit';
-    await User.update({
+    await prisma.users.update({
         where: {username},
         data: {[trustLimitAttr]: newTrustLimit},
     });
